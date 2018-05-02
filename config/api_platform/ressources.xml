@@ -1,0 +1,29 @@
+<resources xmlns="https://api-platform.com/schema/metadata"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="https://api-platform.com/schema/metadata
+           https://api-platform.com/schema/metadata/metadata-2.0.xsd">
+
+    <resource class="App\Entity\User">
+        <property name="creationDate" readable="true" writable="false"/>
+        <property name="client" readable="true" writable="false"/>
+        <itemOperations>
+            <itemOperation name="get"/>
+            <itemOperation name="delete">
+                <attribute name="filters">
+                    <attribute>client.client_filter</attribute>
+                </attribute>
+            </itemOperation>
+        </itemOperations>
+    </resource>
+    <resource class="App\Entity\Product">
+        <collectionOperations>
+            <collectionOperation name="get"/>
+        </collectionOperations>
+        <itemOperations>
+            <itemOperation name="get"/>
+        </itemOperations>
+    </resource>
+    <resource class="App\Entity\Client">
+        <property name="creationDate" readable="true" writable="false"/>
+    </resource>
+</resources>

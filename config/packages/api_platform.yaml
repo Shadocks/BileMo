@@ -1,0 +1,33 @@
+api_platform:
+    title: 'api-bilemo'
+    version: '1.0.0'
+    description: 'API for BileMo application'
+    mapping:
+        paths: ['%kernel.project_dir%/config/api_platform']
+    formats:
+        jsonld: ['application/ld+json']
+        json: ['application/json']
+        html: ['text/html']
+        #xml: ['application/xml']
+    swagger:
+        api_keys:
+            apiKeys:
+                name: Authorization
+                type: header
+    http_cache:
+        etag: true
+        max_age: 3600
+        shared_max_age: 3600
+        vary: ['Accept', 'Content-Type', 'Authorization']
+        public: true
+        invalidation:
+            enabled: true
+
+framework:
+    serializer: { enable_annotations: true }
+
+doctrine:
+    orm:
+        filters:
+            client_filter:
+                class: App\Filter\ClientFilter
