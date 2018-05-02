@@ -22,7 +22,6 @@ api_platform:
         public: true
         invalidation:
             enabled: true
-            
 framework:
     serializer: { enable_annotations: true }
 
