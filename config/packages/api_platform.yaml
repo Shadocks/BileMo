@@ -14,6 +14,14 @@ api_platform:
             apiKeys:
                 name: Authorization
                 type: header
+    http_cache:
+        etag: true
+        max_age: 3600
+        shared_max_age: 3600
+        vary: ['Accept', 'Content-Type', 'Authorization']
+        public: true
+        invalidation:
+            enabled: true
 
 framework:
     serializer: { enable_annotations: true }
