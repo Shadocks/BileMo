@@ -2,17 +2,14 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Entity\Interfaces\ClientInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class Client.
- *
- * @ApiResource()
  */
-class Client implements ClientInterface
+class Client implements ClientInterface, UserInterface, \Serializable
 {
     /**
      * @var int
@@ -41,8 +38,6 @@ class Client implements ClientInterface
 
     /**
      * @var ArrayCollection
-     *
-     * @ApiSubresource()
      */
     private $user;
 
@@ -151,5 +146,50 @@ class Client implements ClientInterface
     {
         $this->user->removeElement($user);
         $user->setClient(null);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSalt()
+    {
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function eraseCredentials()
+    {
+        return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize(
+            [
+                $this->id,
+                $this->username,
+                $this->password
+            ]
+        );
+    }
+
+    /**
+     * @param string $serialized
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password
+        ) = unserialize(
+                $serialized,
+                ['allowed_classes' => false]
+            );
     }
 }

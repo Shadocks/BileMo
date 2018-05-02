@@ -5,32 +5,53 @@ namespace App\DataFixtures;
 use App\Entity\Client;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class ClientFixtures.
  */
 class ClientFixtures extends Fixture
 {
-    public const CLIENT_ORANGE = 'orange-client';
+    /**
+     * @var UserPasswordEncoderInterface
+     */
+    private $passwordEncoder;
 
-    public const CLIENT_SFR = 'sfr-client';
+    const CLIENT_ORANGE = 'orange-client';
 
-    public const CLIENT_BOUYGUES = 'bouygues-client';
+    const CLIENT_SFR = 'sfr-client';
 
-    public const CLIENT_FREE = 'free-client';
+    const CLIENT_BOUYGUES = 'bouygues-client';
 
-    public const CLIENT_RED = 'red-client';
+    const CLIENT_FREE = 'free-client';
+
+    const CLIENT_RED = 'red-client';
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
 
     /**
      * @param ObjectManager $manager
      */
     public function load(ObjectManager $manager)
     {
+        $bilemo = new Client();
+        $bilemo->setUsername('Bilemo');
+        $bilemo->setCreationDate(new \DateTime());
+        $bilemo->setRoles('ROLE_ADMIN');
+        $bilemoPassword = $this->passwordEncoder->encodePassword($bilemo, 'bilemopass');
+        $bilemo->setPassword($bilemoPassword);
+        $manager->persist($bilemo);
+        $manager->flush();
+
         $clientOrange = new Client();
         $clientOrange->setUsername('Orange');
         $clientOrange->setCreationDate(new \DateTime());
         $clientOrange->setRoles('ROLE_USER');
-        $clientOrange->setPassword(uniqid('pwd_', true));
+        $orangePassword = $this->passwordEncoder->encodePassword($clientOrange, 'orange1234');
+        $clientOrange->setPassword($orangePassword);
         $manager->persist($clientOrange);
         $manager->flush();
 
@@ -40,7 +61,8 @@ class ClientFixtures extends Fixture
         $clientSfr->setUsername('SFR');
         $clientSfr->setCreationDate(new \DateTime());
         $clientSfr->setRoles('ROLE_USER');
-        $clientSfr->setPassword(uniqid('pwd_', true));
+        $sfrPassword = $this->passwordEncoder->encodePassword($clientSfr, "sfr1234");
+        $clientSfr->setPassword($sfrPassword);
         $manager->persist($clientSfr);
         $manager->flush();
 
@@ -50,7 +72,8 @@ class ClientFixtures extends Fixture
         $clientBouygues->setUsername('Buygues');
         $clientBouygues->setCreationDate(new \DateTime());
         $clientBouygues->setRoles('ROLE_USER');
-        $clientBouygues->setPassword(uniqid('pwd_', true));
+        $bouyguesPassword = $this->passwordEncoder->encodePassword($clientBouygues, "bouygues1234");
+        $clientBouygues->setPassword($bouyguesPassword);
         $manager->persist($clientBouygues);
         $manager->flush();
 
@@ -60,7 +83,8 @@ class ClientFixtures extends Fixture
         $clientFree->setUsername('Free');
         $clientFree->setCreationDate(new \DateTime());
         $clientFree->setRoles('ROLE_USER');
-        $clientFree->setPassword(uniqid('pwd_', true));
+        $freePassword = $this->passwordEncoder->encodePassword($clientFree, "free1234");
+        $clientFree->setPassword($freePassword);
         $manager->persist($clientFree);
         $manager->flush();
 
@@ -70,7 +94,8 @@ class ClientFixtures extends Fixture
         $clientRed->setUsername('Red');
         $clientRed->setCreationDate(new \DateTime());
         $clientRed->setRoles('ROLE_USER');
-        $clientRed->setPassword(uniqid('pwd_', true));
+        $redPassword = $this->passwordEncoder->encodePassword($clientRed, 'red1234');
+        $clientRed->setPassword($redPassword);
         $manager->persist($clientRed);
         $manager->flush();
 
