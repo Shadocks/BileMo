@@ -3,6 +3,7 @@
 /.circleci/
 /deptrac.phar
 /depfile.yml
+/report/
 
 ###> symfony/framework-bundle ###
 /.env
