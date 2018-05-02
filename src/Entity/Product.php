@@ -8,8 +8,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class Product.
- *
- * @ApiResource()
  */
 class Product implements ProductInterface
 {

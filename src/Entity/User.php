@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Interfaces\UserInterface;
+use App\Annotation\ClientAnnotation;
 
 /**
  * Class User.
  *
- * @ApiResource()
+ * @ClientAnnotation(clientFieldName="client_id")
  */
 class User implements UserInterface
 {
@@ -61,7 +61,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return int
+     * @inheritdoc
      */
     public function getId(): ?int
     {
@@ -69,7 +69,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getFirstName(): string
     {
@@ -77,7 +77,7 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $firstName
+     * @inheritdoc
      */
     public function setFirstName(string $firstName)
     {
@@ -85,7 +85,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getLastName(): string
     {
@@ -93,7 +93,7 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $lastName
+     * @inheritdoc
      */
     public function setLastName(string $lastName)
     {
@@ -101,7 +101,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getEmail(): string
     {
@@ -109,7 +109,7 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $email
+     * @inheritdoc
      */
     public function setEmail(string $email)
     {
@@ -117,7 +117,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getMobileNumber(): string
     {
@@ -125,7 +125,7 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $mobileNumber
+     * @inheritdoc
      */
     public function setMobileNumber(string $mobileNumber)
     {
@@ -133,7 +133,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return \DateTime
+     * @inheritdoc
      */
     public function getCreationDate(): \DateTime
     {
@@ -141,7 +141,7 @@ class User implements UserInterface
     }
 
     /**
-     * @param \DateTime $creationDate
+     * @inheritdoc
      */
     public function setCreationDate(\DateTime $creationDate)
     {
@@ -149,7 +149,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return Product
+     * @inheritdoc
      */
     public function getProduct():Product
     {
@@ -157,7 +157,7 @@ class User implements UserInterface
     }
 
     /**
-     * @param Product $product
+     * @inheritdoc
      */
     public function setProduct(Product $product)
     {
@@ -165,7 +165,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return Client
+     * @inheritdoc
      */
     public function getClient(): Client
     {
@@ -173,7 +173,7 @@ class User implements UserInterface
     }
 
     /**
-     * @param Client $client
+     * @inheritdoc
      */
     public function setClient(Client $client)
     {

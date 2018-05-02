@@ -23,6 +23,14 @@
         <env name="DATABASE_PWD" value="storm" />
         <env name="DATABASE_NAME" value="snowtricks" />
         <!-- doctrine/doctrine-bundle -->
+
+        <!-- ###+ lexik/jwt-authentication-bundle ### -->
+        <!-- Key paths should be relative to the project directory -->
+        <env name="JWT_PRIVATE_KEY_PATH" value="config/jwt/private.pem"/>
+        <env name="JWT_PUBLIC_KEY_PATH" value="config/jwt/public.pem"/>
+        <env name="JWT_PASSPHRASE" value="79a6f5c277404bd18543e5463d4145ff"/>
+        <env name="JWT_TOKEN_TTL" value="3600"/>
+        <!-- ###- lexik/jwt-authentication-bundle ### -->
     </php>
 
     <testsuites>
