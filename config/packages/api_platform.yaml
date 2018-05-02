@@ -1,0 +1,14 @@
+api_platform:
+    title: 'api-bilemo'
+    version: '1.0.0'
+    description: 'API for BileMo application'
+    mapping:
+        paths: ['%kernel.project_dir%/src/Entity']
+    resource_class_directories:
+            - '%kernel.project_dir%/src/Entity'
+    formats:
+        json:
+            mime_types: ['application/json']
+
+framework:
+    serializer: { enable_annotations: true }

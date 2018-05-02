@@ -1,0 +1,10 @@
+<resources xmlns="https://api-platform.com/schema/metadata"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="https://api-platform.com/schema/metadata
+           https://api-platform.com/schema/metadata/metadata-2.0.xsd">
+
+    <resource class="App\Entity\User" />
+    <resource class="App\Entity\Client" />
+    <resource class="App\Entity\Product" />
+
+</resources>
