@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Entity\Interfaces\UserInterface;
 use App\Annotation\ClientAnnotation;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * Class User.
@@ -13,7 +15,7 @@ use App\Annotation\ClientAnnotation;
 class User implements UserInterface
 {
     /**
-     * @var int
+     * @var UuidInterface
      */
     private $id;
 
@@ -57,13 +59,14 @@ class User implements UserInterface
      */
     public function __construct()
     {
+        $this->id = Uuid::uuid4();
         $this->creationDate = new \DateTime();
     }
 
     /**
      * @inheritdoc
      */
-    public function getId(): ?int
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }

@@ -4,6 +4,7 @@ namespace App\Entity\Interfaces;
 
 use App\Entity\Client;
 use App\Entity\Product;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * Interface UserInterface.
@@ -11,9 +12,9 @@ use App\Entity\Product;
 interface UserInterface
 {
     /**
-     * @return int
+     * @return UuidInterface
      */
-    public function getId(): ?int;
+    public function getId(): ?UuidInterface;
 
     /**
      * @return string

@@ -5,6 +5,8 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Interfaces\ProductInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * Class Product.
@@ -12,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Product implements ProductInterface
 {
     /**
-     * @var int
+     * @var UuidInterface
      */
     private $id;
 
@@ -66,13 +68,14 @@ class Product implements ProductInterface
      */
     public function __construct()
     {
+        $this->id = Uuid::uuid4();
         $this->user = new ArrayCollection();
     }
 
     /**
-     * @return int
+     * @return UuidInterface
      */
-    public function getId(): ?int
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }
