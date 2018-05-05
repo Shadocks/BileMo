@@ -5,6 +5,8 @@ namespace App\Tests\Entity;
 use App\Entity\User;
 use App\Entity\Product;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class ProductTest extends TestCase
 {
@@ -12,13 +14,17 @@ class ProductTest extends TestCase
 
     private $user;
 
+    private $uuid;
+
     public function setUp()
     {
         $this->product = new Product();
 
+        $this->uuid = Uuid::uuid4();
+
         $this->user = $this->createMock(User::class);
         $this->user->method('getId')
-                   ->willReturn(1);
+                   ->willReturn($this->uuid);
 
         parent::setUp();
     }
@@ -36,7 +42,7 @@ class ProductTest extends TestCase
         $product->setWidth('40 mm');
         $product->setScreen('5,5 pouces');
 
-        static::assertNull($product->getId());
+        static::assertInstanceOf(UuidInterface::class, $product->getId());
         static::assertEquals('Nokia', $product->getBrand());
         static::assertEquals('3310', $product->getName());
         static::assertEquals('Nokia 3310 Black Edition', $product->getDescription());
@@ -45,14 +51,21 @@ class ProductTest extends TestCase
         static::assertEquals('90 mm', $product->getHeight());
         static::assertEquals('40 mm', $product->getWidth());
         static::assertEquals('5,5 pouces', $product->getScreen());
-
     }
 
     public function testAddUserPass()
     {
         $this->product->addUser($this->user);
 
-        static::assertInstanceOf(\ArrayAccess::class, $this->product->getUser($this->user));
-        static::assertEquals(1, $this->product->getUser()->get(0)->getId());
+        static::assertInstanceOf(\ArrayAccess::class, $this->product->getUser());
+        static::assertEquals($this->uuid, $this->product->getUser()->get(0)->getId());
+    }
+
+    public function testRemoveUser()
+    {
+        $this->user->setProduct($this->product);
+        $this->product->addUser($this->user);
+
+        static::assertNull($this->product->removeUser($this->user));
     }
 }

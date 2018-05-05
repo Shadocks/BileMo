@@ -231,6 +231,6 @@ class Product implements ProductInterface
     public function removeUser(User $user)
     {
         $this->user->removeElement($user);
-        $user->setProduct(null);
+        //$user->setProduct(null);
     }
 }
