@@ -1,4 +1,4 @@
-Feature:
+Feature: login
   In order to generate a identification token
   As an anonymous authenticated user
   I need to provide my identifiers

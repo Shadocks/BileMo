@@ -4,6 +4,8 @@ default:
             contexts:
                 - FeatureContext:
                     kernel: '@kernel'
+                    JWTManager: '@lexik_jwt_authentication.jwt_manager'
+                    entityManager: '@doctrine.orm.default_entity_manager'
                 - Behat\MinkExtension\Context\MinkContext
                 - behatch:context:browser
                 - behatch:context:debug
