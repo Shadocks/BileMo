@@ -6,6 +6,7 @@ jobs:
         steps:
             - checkout
             - run: echo 'Hello World'
+            - run: sudo apt install -y libsqlite3-dev zlib1g-dev
             - run: sudo docker-php-ext-install zip
             - run: sudo composer self-update
             - restore_cache:
@@ -16,7 +17,7 @@ jobs:
             - run: composer dump-autoload --optimize --classmap-authoritative
             - save_cache:
                 paths:
-                    - ./vendor
+                    - vendor
                 key: composer-v1-{{ checksum "composer.json" }}
             - run: ./bin/console d:d:c --env=test
             - run: ./bin/console d:s:c --env=test
