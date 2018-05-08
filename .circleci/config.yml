@@ -5,6 +5,7 @@ jobs:
             - image: circleci/php:7.2.3-apache-node-browsers
         steps:
             - checkout
+            - setup_remote_docker
             - run: echo 'Hello World'
             - run: sudo apt install -y libsqlite3-dev zlib1g-dev
             - run: sudo docker-php-ext-install zip
