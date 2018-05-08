@@ -19,6 +19,7 @@ jobs:
                 paths:
                     - vendor
                 key: composer-v1-{{ checksum "composer.json" }}
-            - run: ./bin/console d:d:c --env=test
-            - run: ./bin/console d:s:c --env=test
-            - run: ./vendor/bin/phpunit -v
+            - run: ${HOME}/project/bin/console d:d:c --env=test
+            - run: ${HOME}/project/bin/console d:s:c --env=test
+            - run: ${HOME}/project/bin/console d:f:l -n
+            - run: ${HOME}/project/vendor/bin/phpunit -v
