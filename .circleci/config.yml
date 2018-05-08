@@ -27,7 +27,7 @@ jobs:
             - run: ./bin/console
             - run: ./bin/console d:d:c --env=test
             - run: ./bin/console d:s:c --env=test
-            - run: ./bin/console d:f:l -n
+            - run: ./bin/console d:f:l -n --env=test
             - run: ./vendor/bin/phpunit -v
 
 workflows:
