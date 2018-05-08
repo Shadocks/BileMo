@@ -1,12 +1,11 @@
 version: 2
 jobs:
-    build:
+    phpunit:
         docker:
             - image: circleci/php:7.2.3-apache-node-browsers
         steps:
             - checkout
-            - setup_remote_docker
-            - run: echo 'Hello World'
+            - run: mkdir -p /tmp/phpunit-coverage
             - run: sudo apt install -y libsqlite3-dev zlib1g-dev
             - run: sudo docker-php-ext-install zip
             - run: ls -l ${HOME}/project
@@ -15,13 +14,23 @@ jobs:
                 keys:
                     - composer-v1-{{ checksum "composer.json" }}
                     - composer-v1-
+            - run: cp .env.dist .env
+            - run: phpunit.xml.dist phpunit.xml
             - run: composer install -n --optimize-autoloader --classmap-authoritative
             - run: composer dump-autoload --optimize --classmap-authoritative
             - save_cache:
                 paths:
                     - vendor
                 key: composer-v1-{{ checksum "composer.json" }}
+            - run: rm -rf var/cache/*
+            - run: ./bin/console
             - run: ./bin/console d:d:c --env=test
             - run: ./bin/console d:s:c --env=test
             - run: ./bin/console d:f:l -n
             - run: ./vendor/bin/phpunit -v
+
+workflows:
+    version: 2
+    jobs:
+        unit_tests:
+            - phpunit
