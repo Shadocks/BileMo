@@ -8,6 +8,7 @@ jobs:
             - run: echo 'Hello World'
             - run: sudo apt install -y libsqlite3-dev zlib1g-dev
             - run: sudo docker-php-ext-install zip
+            - run: ls -l ${HOME}/project
             - run: sudo composer self-update
             - restore_cache:
                 keys:
