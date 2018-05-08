@@ -2,7 +2,7 @@ version: 2
 jobs:
     build:
         docker:
-            - image: circleci/php:7.2.5-apache-stretch-node
+            - image: circleci/php:7.2.3-apache-node-browsers
         steps:
             - checkout
             - run: echo 'Hello World'
@@ -20,7 +20,7 @@ jobs:
                 paths:
                     - vendor
                 key: composer-v1-{{ checksum "composer.json" }}
-            - run: sudo ./bin/console d:d:c --env=test
-            - run: sudo ./bin/console d:s:c --env=test
-            - run: sudo ./bin/console d:f:l -n
-            - run: sudo ./vendor/bin/phpunit -v
+            - run: ./bin/console d:d:c --env=test
+            - run: ./bin/console d:s:c --env=test
+            - run: ./bin/console d:f:l -n
+            - run: ./vendor/bin/phpunit -v
