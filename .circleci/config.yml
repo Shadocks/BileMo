@@ -23,6 +23,7 @@ jobs:
                     - vendor
                 key: composer-v1-{{ checksum "composer.json" }}
             - run: rm -rf var/cache/*
+            - run: chmod +x ./bin/console
             - run: ./bin/console
             - run: ./bin/console d:d:c --env=test
             - run: ./bin/console d:s:c --env=test
