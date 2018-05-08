@@ -31,6 +31,6 @@ jobs:
 
 workflows:
     version: 2
-    jobs:
-        unit_tests:
+    unit_tests:
+        jobs:
             - phpunit
