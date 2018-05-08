@@ -15,7 +15,7 @@ jobs:
                     - composer-v1-{{ checksum "composer.json" }}
                     - composer-v1-
             - run: cp .env.dist .env
-            - run: phpunit.xml.dist phpunit.xml
+            - run: cp phpunit.xml.dist phpunit.xml
             - run: composer install -n --optimize-autoloader --classmap-authoritative
             - run: composer dump-autoload --optimize --classmap-authoritative
             - save_cache:
