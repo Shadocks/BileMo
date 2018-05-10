@@ -80,14 +80,30 @@ class FeatureContext implements Context
 
     /**
      * @BeforeScenario product
-     * @login
+     * @BeforeScenario user
      *
      * @param BeforeScenarioScope $scope
      */
     public function login(BeforeScenarioScope $scope)
     {
         $client = $this->entityManager->getRepository(Client::class)
-                                      ->find('54c45693-837b-456c-89a0-8b00552e1b9c');
+                                      ->find('d1bd46fd-9ceb-43aa-ad70-d58ce2d2ba80');
+
+        $token = $this->JWTManager->create($client);
+
+        $this->restContext = $scope->getEnvironment()->getContext(RestContext::class);
+        $this->restContext->iAddHeaderEqualTo('Authorization', "Bearer $token");
+    }
+
+    /**
+     * @BeforeScenario client
+     *
+     * @param BeforeScenarioScope $scope
+     */
+    public function loginAdmin(BeforeScenarioScope $scope)
+    {
+        $client = $this->entityManager->getRepository(Client::class)
+                                      ->find('3f3505ee-72be-41b3-ac94-65dec255d44f');
 
         $token = $this->JWTManager->create($client);
 

@@ -8,5 +8,5 @@ Feature: product
     Then the response status code should be 200
 
   Scenario: It receives a response product details of API
-    When I send a "GET" request to "/api/products/31b6d0ef-ee9a-4823-8e41-89ce4b65a5c6"
+    When I send a "GET" request to "/api/products/8bec2037-6fb9-4196-ae5b-e03a59a1a2cb"
     Then the response status code should be 200
