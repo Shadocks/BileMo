@@ -25,7 +25,7 @@ Feature: user
         "email": "behat.behat@gmail.com",
         "mobileNumber": "0654129884",
         "product": "\/api\/products\/8bec2037-6fb9-4196-ae5b-e03a59a1a2cb"
-     }
+    }
     """
     Then the response status code should be 200
 

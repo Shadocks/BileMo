@@ -41,7 +41,16 @@
 
         <property name="creationDate" readable="true" writable="false"/>
 
-        <property name="user" readable="true" writable="false" />
+        <property name="user" readable="true" writable="false"/>
+
+        <collectionOperations>
+            <collectionOperation name="get"/>
+            <collectionOperation name="post"/>
+        </collectionOperations>
+
+        <itemOperations>
+            <itemOperation name="get"/>
+        </itemOperations>
 
     </resource>
 

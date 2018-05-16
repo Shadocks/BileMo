@@ -33,7 +33,7 @@ interface ClientInterface
     /**
      * @param string $roles
      */
-    public function setRoles(String $roles);
+    public function changeRoles(String $roles);
 
     /**
      * @return string
