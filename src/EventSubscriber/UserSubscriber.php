@@ -35,14 +35,14 @@ final class UserSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::REQUEST => ['addClient', EventPriorities::POST_DESERIALIZE],
+            KernelEvents::REQUEST => ['addUser', EventPriorities::POST_DESERIALIZE],
         ];
     }
 
     /**
      * @param GetResponseEvent $event
      */
-    public function addClient(GetResponseEvent $event)
+    public function addUser(GetResponseEvent $event)
     {
         if ('POST' === $event->getRequest()->getMethod() &&
             '/api/users' === $event->getRequest()->getPathInfo()

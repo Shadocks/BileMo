@@ -5,9 +5,7 @@
 
     <entity name="App\Entity\Client" table="client" repository-class="App\Repository\ClientRepository">
 
-        <id name="id" type="integer">
-            <generator strategy="AUTO" />
-        </id>
+        <id name="id" type="uuid" />
 
         <field name="username" type="string" nullable="false" unique="true" />
 

@@ -6,6 +6,8 @@ use App\Entity\Client;
 use App\Entity\Product;
 use App\Entity\User;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class UserTest extends TestCase
 {
@@ -13,15 +15,19 @@ class UserTest extends TestCase
 
     private $product;
 
+    private $uuid;
+
     public function setUp()
     {
+        $this->uuid = Uuid::uuid4();
+
         $this->client = $this->createMock(Client::class);
         $this->client->method('getId')
-                     ->willReturn(1);
+                     ->willReturn($this->uuid);
 
         $this->product = $this->createMock(Product::class);
         $this->product->method('getId')
-                      ->willReturn(2);
+                      ->willReturn($this->uuid);
 
         parent::setUp();
     }
@@ -36,7 +42,7 @@ class UserTest extends TestCase
         $user->setMobileNumber('0645213265');
         $user->setCreationDate(new \DateTime());
 
-        static::assertNull($user->getId());
+        static::assertInstanceOf(UuidInterface::class, $user->getId());
         static::assertEquals('Bruce', $user->getFirstName());
         static::assertEquals('Banner', $user->getLastName());
         static::assertEquals('bruce.banner@gmail.com', $user->getEmail());
@@ -50,7 +56,7 @@ class UserTest extends TestCase
         $user->setClient($this->client);
 
         static::assertInstanceOf(Client::class, $user->getClient());
-        static::assertEquals(1, $user->getClient()->getId());
+        static::assertEquals($this->uuid, $user->getClient()->getId());
     }
 
     public function testProductPass()
@@ -59,6 +65,6 @@ class UserTest extends TestCase
         $user->setProduct($this->product);
 
         static::assertInstanceOf(Product::class, $user->getProduct());
-        static::assertEquals(2, $user->getProduct()->getId());
+        static::assertEquals($this->uuid, $user->getProduct()->getId());
     }
 }

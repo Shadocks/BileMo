@@ -5,6 +5,8 @@ namespace App\Tests\Entity;
 use App\Entity\Client;
 use App\Entity\User;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class ClientTest extends TestCase
 {
@@ -12,13 +14,17 @@ class ClientTest extends TestCase
 
     private $user;
 
+    private $uuid;
+
     public function setUp()
     {
         $this->client = new Client();
 
+        $this->uuid = Uuid::uuid4();
+
         $this->user = $this->createMock(User::class);
         $this->user->method('getId')
-                   ->willReturn(1);
+                   ->willReturn($this->uuid);
 
         parent::setUp();
     }
@@ -28,15 +34,17 @@ class ClientTest extends TestCase
         $client = new Client();
 
         $client->setUsername('Stark');
-        $client->setRoles('ROLE_USER');
         $client->setPassword('password');
         $client->setCreationDate(new \DateTime());
 
-        static::assertNull($client->getId());
+        static::assertInstanceOf(UuidInterface::class, $client->getId());
         static::assertEquals('Stark', $client->getUsername());
-        static::assertContains('ROLE_USER', $client->getRoles());
+        static::assertEquals(['ROLE_USER'], $client->getRoles());
         static::assertEquals('password', $client->getPassword());
         static::assertInstanceOf(\DateTime::class, $client->getCreationDate());
+        static::assertFalse($client->getSalt());
+        static::assertFalse($client->eraseCredentials());
+        static::assertEquals(Serialize([$client->getId(), $client->getUsername(), $client->getPassword()]), $client->serialize());
     }
 
     public function testUserPass()
@@ -44,6 +52,21 @@ class ClientTest extends TestCase
         $this->client->addUser($this->user);
 
         static::assertInstanceOf(\ArrayAccess::class, $this->client->getUser($this->user));
-        static::assertEquals(1, $this->client->getUser()->get(0)->getId());
+        static::assertEquals($this->uuid, $this->client->getUser()->get(0)->getId());
+    }
+
+    public function testChangeRoles()
+    {
+        $this->client->changeRoles('ROLE_ADMIN');
+
+        static::assertEquals(['ROLE_ADMIN'], $this->client->getRoles());
+    }
+
+    public function testRemoveUser()
+    {
+        $this->user->setClient($this->client);
+        $this->client->addUser($this->user);
+
+        static::assertNull($this->client->removeUser($this->user));
     }
 }

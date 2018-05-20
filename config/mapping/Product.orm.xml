@@ -5,9 +5,7 @@
 
     <entity name="App\Entity\Product" table="product" repository-class="App\Repository\ProductRepository">
 
-        <id name="id" type="integer">
-            <generator strategy="AUTO" />
-        </id>
+        <id name="id" type="uuid" />
 
         <field name="brand" type="string" nullable="false" />
 

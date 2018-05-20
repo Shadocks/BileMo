@@ -3,6 +3,7 @@
 namespace App\Entity\Interfaces;
 
 use App\Entity\User;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * Interface ClientInterface.
@@ -10,9 +11,9 @@ use App\Entity\User;
 interface ClientInterface
 {
     /**
-     * @return int
+     * @return UuidInterface
      */
-    public function getId(): ?int;
+    public function getId(): ?UuidInterface;
 
     /**
      * @return string
@@ -32,7 +33,7 @@ interface ClientInterface
     /**
      * @param string $roles
      */
-    public function setRoles(String $roles);
+    public function changeRoles(String $roles);
 
     /**
      * @return string

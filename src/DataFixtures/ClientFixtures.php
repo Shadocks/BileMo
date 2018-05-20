@@ -40,7 +40,7 @@ class ClientFixtures extends Fixture
         $bilemo = new Client();
         $bilemo->setUsername('Bilemo');
         $bilemo->setCreationDate(new \DateTime());
-        $bilemo->setRoles('ROLE_ADMIN');
+        $bilemo->changeRoles('ROLE_ADMIN');
         $bilemoPassword = $this->passwordEncoder->encodePassword($bilemo, 'bilemopass');
         $bilemo->setPassword($bilemoPassword);
         $manager->persist($bilemo);
@@ -49,7 +49,6 @@ class ClientFixtures extends Fixture
         $clientOrange = new Client();
         $clientOrange->setUsername('Orange');
         $clientOrange->setCreationDate(new \DateTime());
-        $clientOrange->setRoles('ROLE_USER');
         $orangePassword = $this->passwordEncoder->encodePassword($clientOrange, 'orange1234');
         $clientOrange->setPassword($orangePassword);
         $manager->persist($clientOrange);
@@ -60,7 +59,6 @@ class ClientFixtures extends Fixture
         $clientSfr = new Client();
         $clientSfr->setUsername('SFR');
         $clientSfr->setCreationDate(new \DateTime());
-        $clientSfr->setRoles('ROLE_USER');
         $sfrPassword = $this->passwordEncoder->encodePassword($clientSfr, "sfr1234");
         $clientSfr->setPassword($sfrPassword);
         $manager->persist($clientSfr);
@@ -71,7 +69,6 @@ class ClientFixtures extends Fixture
         $clientBouygues = new Client();
         $clientBouygues->setUsername('Buygues');
         $clientBouygues->setCreationDate(new \DateTime());
-        $clientBouygues->setRoles('ROLE_USER');
         $bouyguesPassword = $this->passwordEncoder->encodePassword($clientBouygues, "bouygues1234");
         $clientBouygues->setPassword($bouyguesPassword);
         $manager->persist($clientBouygues);
@@ -82,7 +79,6 @@ class ClientFixtures extends Fixture
         $clientFree = new Client();
         $clientFree->setUsername('Free');
         $clientFree->setCreationDate(new \DateTime());
-        $clientFree->setRoles('ROLE_USER');
         $freePassword = $this->passwordEncoder->encodePassword($clientFree, "free1234");
         $clientFree->setPassword($freePassword);
         $manager->persist($clientFree);
@@ -93,7 +89,6 @@ class ClientFixtures extends Fixture
         $clientRed = new Client();
         $clientRed->setUsername('Red');
         $clientRed->setCreationDate(new \DateTime());
-        $clientRed->setRoles('ROLE_USER');
         $redPassword = $this->passwordEncoder->encodePassword($clientRed, 'red1234');
         $clientRed->setPassword($redPassword);
         $manager->persist($clientRed);

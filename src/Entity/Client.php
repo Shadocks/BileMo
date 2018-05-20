@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Entity\Interfaces\ClientInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -12,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class Client implements ClientInterface, UserInterface, \Serializable
 {
     /**
-     * @var int
+     * @var UuidInterface
      */
     private $id;
 
@@ -46,14 +48,16 @@ class Client implements ClientInterface, UserInterface, \Serializable
      */
     public function __construct()
     {
+        $this->id = Uuid::uuid4();
+        $this->roles = ['ROLE_USER'];
         $this->creationDate = new \DateTime();
         $this->user = new ArrayCollection();
     }
 
     /**
-     * @return int
+     * @return UuidInterface
      */
-    public function getId(): ?int
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }
@@ -85,9 +89,10 @@ class Client implements ClientInterface, UserInterface, \Serializable
     /**
      * @param string $roles
      */
-    public function setRoles(string $roles)
+    public function changeRoles(string $roles)
     {
-        $this->roles[] = $roles;
+        $roles = [$roles];
+        $this->roles = $roles;
     }
 
     /**
@@ -145,7 +150,6 @@ class Client implements ClientInterface, UserInterface, \Serializable
     public function removeUser(User $user)
     {
         $this->user->removeElement($user);
-        $user->setClient(null);
     }
 
     /**
