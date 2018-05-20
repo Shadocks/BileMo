@@ -5,7 +5,6 @@ namespace App\EventSubscriber;
 use ApiPlatform\Core\EventListener\EventPriorities;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -45,8 +44,7 @@ final class ClientSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::REQUEST => ['addClient', EventPriorities::POST_DESERIALIZE],
-            KernelEvents::VIEW => ['getClient', EventPriorities::PRE_RESPOND]
+            KernelEvents::REQUEST => ['addClient', EventPriorities::POST_DESERIALIZE]
         ];
     }
 
@@ -64,17 +62,5 @@ final class ClientSubscriber implements EventSubscriberInterface
         }
 
         return;
-    }
-
-    /**
-     * @param GetResponseForControllerResultEvent $responseEvent
-     */
-    public function getClient(GetResponseForControllerResultEvent $responseEvent)
-    {
-        if ('/api/clients' === $responseEvent->getRequest()->getPathInfo()
-            && 'GET' === $responseEvent->getRequest()->getMethod()
-        ) {
-            dump($responseEvent->getRequest());
-        }
     }
 }

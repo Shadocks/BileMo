@@ -36,6 +36,6 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/docs, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/clients, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/clients, roles: ROLE_ADMIN}
         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/products, roles: IS_AUTHENTICATED_FULLY }
