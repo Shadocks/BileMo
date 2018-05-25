@@ -3,11 +3,11 @@ Feature: client
   As an authenticated user (client) with ROLE_ADMIN
   I need to provide a token
 
-  Scenario: He asks for the list of clients
+  Scenario: User asks for the list of clients
     When I send a "GET" request to "/api/clients"
     Then the response status code should be 200
 
-  Scenario: It creates a client
+  Scenario: User creates a client
     When I add "Content-Type" header equal to "application/json"
     When I send a "POST" request to "/api/clients" with body:
     """

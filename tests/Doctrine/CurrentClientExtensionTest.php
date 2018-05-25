@@ -4,16 +4,24 @@ namespace App\Tests\Doctrine;
 
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGenerator;
 use App\Doctrine\CurrentClientExtension;
+use App\Entity\Client;
 use Doctrine\ORM\QueryBuilder;
+use Lexik\Bundle\JWTAuthenticationBundle\Security\Authentication\Token\JWTUserToken;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class CurrentClientExtensionTest extends KernelTestCase
 {
     private $tokenStorage;
 
+    private $JWTUserToken;
+
     private $authorizationChecker;
 
     private $em;
+
+    private $currentClientExtension;
+
+    private $user;
 
     public function setUp()/* The :void return type declaration that should be here would cause a BC issue */
     {
@@ -23,23 +31,34 @@ class CurrentClientExtensionTest extends KernelTestCase
         $this->authorizationChecker = static::$kernel->getContainer()->get('security.authorization_checker');
         $this->em = static::$kernel->getContainer()->get('doctrine.orm.default_entity_manager');
 
+        $this->currentClientExtension = new CurrentClientExtension($this->tokenStorage, $this->authorizationChecker);
+
+        $this->user = new Client();
+        $this->JWTUserToken = new JWTUserToken($roles = [], $this->user);
+
+        $this->tokenStorage->setToken($this->JWTUserToken);
+
         parent::setUp();
     }
 
     public function testConstruct()
     {
-        $currentClientExtension = new CurrentClientExtension($this->tokenStorage, $this->authorizationChecker);
-
-        static::assertInstanceOf(CurrentClientExtension::class, $currentClientExtension);
+        static::assertInstanceOf(CurrentClientExtension::class, $this->currentClientExtension);
     }
-/**
+
     public function testApplyToItem()
     {
-        $currentClientExtension = new CurrentClientExtension($this->tokenStorage, $this->authorizationChecker);
-        $toto = new QueryBuilder($this->em);
-        $titi = new QueryNameGenerator();
+        $qb = new QueryBuilder($this->em);
+        $queryNameGenerator = new QueryNameGenerator();
 
-        static::assertTrue($currentClientExtension->applyToItem($toto, $titi, 'User', [], null, []));
+        static::assertNull($this->currentClientExtension->applyToItem($qb, $queryNameGenerator, 'user', $identifiers = [], $operationName = null, $context = []));
     }
- */
+
+    public function testApplyToCollection()
+    {
+        $qb = new QueryBuilder($this->em);
+        $queryNameGenerator = new QueryNameGenerator();
+
+        static::assertNull($this->currentClientExtension->applyToCollection($qb, $queryNameGenerator, 'user', $operationName = null));
+    }
 }

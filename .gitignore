@@ -3,6 +3,7 @@
 /deptrac.phar
 /depfile.yml
 /report/
+/phpunit.xml
 
 ###> symfony/framework-bundle ###
 /.env

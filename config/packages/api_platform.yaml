@@ -8,7 +8,7 @@ api_platform:
         jsonld: ['application/ld+json']
         json: ['application/json']
         html: ['text/html']
-        #xml: ['application/xml']
+        xml: ['application/xml']
     swagger:
         api_keys:
             apiKeys:
