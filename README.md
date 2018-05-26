@@ -1,3 +1,7 @@
+[![CircleCI](https://circleci.com/gh/Shadocks/BileMo/tree/master.svg?style=svg)](https://circleci.com/gh/Shadocks/BileMo/tree/master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0b1b93bd1fe846c0847bdc1ba04db805)](https://www.codacy.com/app/Shadocks/BileMo?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Shadocks/BileMo&amp;utm_campaign=Badge_Grade)
+[![Maintainability](https://api.codeclimate.com/v1/badges/0a68621d1498afb687b3/maintainability)](https://codeclimate.com/github/Shadocks/BileMo/maintainability)
+
 # BileMo
 
 ## Scope
