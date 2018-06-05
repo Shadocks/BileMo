@@ -35,7 +35,7 @@ final class UserSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::REQUEST => ['addUser', EventPriorities::POST_DESERIALIZE],
+            KernelEvents::REQUEST => ['addUser', EventPriorities::POST_DESERIALIZE]
         ];
     }
 
